@@ -1,0 +1,79 @@
+==============================================================================
+TVPS - TELEMETRY VALIDATION & PROCESSING SYSTEM - DEMO
+==============================================================================
+
+1. VALID TELEMETRY
+------------------------------------------------------------------------------
+Input      : {"timestamp":"2024-05-01T09:00:00Z","sequence":1,"latitude":12.5,"longitude":45.25,"altitude":120.5,"speed":33.0,"battery":87.5,"satellites":12}
+Status     : PASS
+Stage      : PROCESSING
+Processing : PROCESSED
+Data       : sequence=1 timestamp=2024-05-01T09:00:00Z position=(12.5, 45.25) altitude=120.5 speed=33.0 battery=87.5 satellites=12
+
+2. MISSING MANDATORY FIELD
+------------------------------------------------------------------------------
+Input      : {"timestamp":"2024-05-01T09:00:00Z","sequence":1,"latitude":12.5,"longitude":45.25,"altitude":120.5,"speed":33.0,"satellites":12}
+Status     : REJECTED
+Stage      : VALIDATION
+Processing : REJECTED
+Error      : battery field is required
+
+3. INVALID BATTERY
+------------------------------------------------------------------------------
+Input      : {"timestamp":"2024-05-01T09:00:00Z","sequence":1,"latitude":12.5,"longitude":45.25,"altitude":120.5,"speed":33.0,"battery":101,"satellites":12}
+Status     : REJECTED
+Stage      : VALIDATION
+Processing : REJECTED
+Error      : battery must be between 0 and 100
+
+4. INVALID LATITUDE
+------------------------------------------------------------------------------
+Input      : {"timestamp":"2024-05-01T09:00:00Z","sequence":1,"latitude":91,"longitude":45.25,"altitude":120.5,"speed":33.0,"battery":87.5,"satellites":12}
+Status     : REJECTED
+Stage      : VALIDATION
+Processing : REJECTED
+Error      : latitude must be between -90 and 90
+
+5. WRONG DATA TYPE
+------------------------------------------------------------------------------
+Input      : {"timestamp":"2024-05-01T09:00:00Z","sequence":"one","latitude":12.5,"longitude":45.25,"altitude":120.5,"speed":33.0,"battery":87.5,"satellites":12}
+Status     : REJECTED
+Stage      : VALIDATION
+Processing : REJECTED
+Error      : sequence must be an integer
+
+6. MALFORMED JSON
+------------------------------------------------------------------------------
+Input      : {"timestamp": "2024-05-01T09:00:00Z", "sequence": 1, "latitude": 12.5, "longitude": 45.25, "altitude": 120.5, "speed": 33.0, "battery": 87.5, "satellites": 12
+Status     : REJECTED
+Stage      : PARSING
+Processing : REJECTED
+Error      : malformed JSON: Expecting ',' delimiter (line 1, column 159)
+
+7. OUT-OF-ORDER SEQUENCE
+------------------------------------------------------------------------------
+Input      : sequence 5 (accepted)
+Input      : sequence 2 (received afterwards)
+Status     : PASS
+Processing : PROCESSED
+Status     : REJECTED
+Processing : OUT_OF_ORDER
+Error      : sequence 2 is out of order, expected greater than 5
+
+8. BATCH PROCESSING
+------------------------------------------------------------------------------
+Input      : 6 packets (valid and invalid packets mixed)
+Status     : REJECTED
+Processing : PARTIAL
+Total      : 6
+Valid      : 3
+Invalid    : 3
+Processed  : 3
+Errors     :
+  - packet #1 [MISSING_FIELD] battery field is required
+  - packet #3 [PARSE_ERROR] malformed JSON: Expecting ',' delimiter (line 1, column 159)
+  - packet #4 [OUT_OF_RANGE] battery must be between 0 and 100
+
+==============================================================================
+DEMO FINISHED - ALL SCENARIOS BEHAVED AS EXPECTED
+==============================================================================

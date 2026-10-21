@@ -1,0 +1,72 @@
+[
+  {
+    "case": "baseline",
+    "expected_error": null,
+    "packet": {
+      "timestamp": "2024-05-01T09:00:00Z",
+      "sequence": 1,
+      "latitude": 12.5,
+      "longitude": 45.25,
+      "altitude": 120.5,
+      "speed": 33.0,
+      "battery": 87.5,
+      "satellites": 12
+    }
+  },
+  {
+    "case": "typical_flight",
+    "expected_error": null,
+    "packet": {
+      "timestamp": "2024-05-01T09:00:01Z",
+      "sequence": 2,
+      "latitude": 12.6,
+      "longitude": 45.3,
+      "altitude": 128.0,
+      "speed": 35.5,
+      "battery": 87.0,
+      "satellites": 11
+    }
+  },
+  {
+    "case": "boundary_minimum",
+    "expected_error": null,
+    "packet": {
+      "timestamp": "2024-05-01T09:00:02Z",
+      "sequence": 3,
+      "latitude": -90,
+      "longitude": -180,
+      "altitude": 0,
+      "speed": 0,
+      "battery": 0,
+      "satellites": 0
+    }
+  },
+  {
+    "case": "boundary_maximum",
+    "expected_error": null,
+    "packet": {
+      "timestamp": "2024-05-01T09:00:03Z",
+      "sequence": 4,
+      "latitude": 90,
+      "longitude": 180,
+      "altitude": 10000,
+      "speed": 500,
+      "battery": 100,
+      "satellites": 40
+    }
+  },
+  {
+    "case": "integer_values",
+    "expected_error": null,
+    "packet": {
+      "timestamp": "2024-05-01T09:00:04Z",
+      "sequence": 5,
+      "latitude": 0,
+      "longitude": 0,
+      "altitude": 500,
+      "speed": 100,
+      "battery": 50,
+      "satellites": 20
+    }
+  }
+]

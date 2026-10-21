@@ -1,0 +1,195 @@
+[
+  {
+    "case": "missing_battery",
+    "expected_error": "battery field is required",
+    "packet": {
+      "timestamp": "2024-05-01T09:00:00Z",
+      "sequence": 1,
+      "latitude": 12.5,
+      "longitude": 45.25,
+      "altitude": 120.5,
+      "speed": 33.0,
+      "satellites": 12
+    }
+  },
+  {
+    "case": "missing_timestamp",
+    "expected_error": "timestamp field is required",
+    "packet": {
+      "sequence": 1,
+      "latitude": 12.5,
+      "longitude": 45.25,
+      "altitude": 120.5,
+      "speed": 33.0,
+      "battery": 87.5,
+      "satellites": 12
+    }
+  },
+  {
+    "case": "missing_satellites",
+    "expected_error": "satellites field is required",
+    "packet": {
+      "timestamp": "2024-05-01T09:00:00Z",
+      "sequence": 1,
+      "latitude": 12.5,
+      "longitude": 45.25,
+      "altitude": 120.5,
+      "speed": 33.0,
+      "battery": 87.5
+    }
+  },
+  {
+    "case": "wrong_type_sequence",
+    "expected_error": "sequence must be an integer",
+    "packet": {
+      "timestamp": "2024-05-01T09:00:00Z",
+      "sequence": "one",
+      "latitude": 12.5,
+      "longitude": 45.25,
+      "altitude": 120.5,
+      "speed": 33.0,
+      "battery": 87.5,
+      "satellites": 12
+    }
+  },
+  {
+    "case": "wrong_type_latitude",
+    "expected_error": "latitude must be a number",
+    "packet": {
+      "timestamp": "2024-05-01T09:00:00Z",
+      "sequence": 1,
+      "latitude": "12.5",
+      "longitude": 45.25,
+      "altitude": 120.5,
+      "speed": 33.0,
+      "battery": 87.5,
+      "satellites": 12
+    }
+  },
+  {
+    "case": "wrong_type_battery",
+    "expected_error": "battery must be a number",
+    "packet": {
+      "timestamp": "2024-05-01T09:00:00Z",
+      "sequence": 1,
+      "latitude": 12.5,
+      "longitude": 45.25,
+      "altitude": 120.5,
+      "speed": 33.0,
+      "battery": "full",
+      "satellites": 12
+    }
+  },
+  {
+    "case": "wrong_type_satellites",
+    "expected_error": "satellites must be an integer",
+    "packet": {
+      "timestamp": "2024-05-01T09:00:00Z",
+      "sequence": 1,
+      "latitude": 12.5,
+      "longitude": 45.25,
+      "altitude": 120.5,
+      "speed": 33.0,
+      "battery": 87.5,
+      "satellites": "twelve"
+    }
+  },
+  {
+    "case": "out_of_range_latitude",
+    "expected_error": "latitude must be between -90 and 90",
+    "packet": {
+      "timestamp": "2024-05-01T09:00:00Z",
+      "sequence": 1,
+      "latitude": 91,
+      "longitude": 45.25,
+      "altitude": 120.5,
+      "speed": 33.0,
+      "battery": 87.5,
+      "satellites": 12
+    }
+  },
+  {
+    "case": "out_of_range_longitude",
+    "expected_error": "longitude must be between -180 and 180",
+    "packet": {
+      "timestamp": "2024-05-01T09:00:00Z",
+      "sequence": 1,
+      "latitude": 12.5,
+      "longitude": -181,
+      "altitude": 120.5,
+      "speed": 33.0,
+      "battery": 87.5,
+      "satellites": 12
+    }
+  },
+  {
+    "case": "out_of_range_altitude",
+    "expected_error": "altitude must be between 0 and 10000",
+    "packet": {
+      "timestamp": "2024-05-01T09:00:00Z",
+      "sequence": 1,
+      "latitude": 12.5,
+      "longitude": 45.25,
+      "altitude": 10001,
+      "speed": 33.0,
+      "battery": 87.5,
+      "satellites": 12
+    }
+  },
+  {
+    "case": "out_of_range_speed",
+    "expected_error": "speed must be between 0 and 500",
+    "packet": {
+      "timestamp": "2024-05-01T09:00:00Z",
+      "sequence": 1,
+      "latitude": 12.5,
+      "longitude": 45.25,
+      "altitude": 120.5,
+      "speed": 500.1,
+      "battery": 87.5,
+      "satellites": 12
+    }
+  },
+  {
+    "case": "out_of_range_battery",
+    "expected_error": "battery must be between 0 and 100",
+    "packet": {
+      "timestamp": "2024-05-01T09:00:00Z",
+      "sequence": 1,
+      "latitude": 12.5,
+      "longitude": 45.25,
+      "altitude": 120.5,
+      "speed": 33.0,
+      "battery": 101,
+      "satellites": 12
+    }
+  },
+  {
+    "case": "out_of_range_satellites",
+    "expected_error": "satellites must be between 0 and 40",
+    "packet": {
+      "timestamp": "2024-05-01T09:00:00Z",
+      "sequence": 1,
+      "latitude": 12.5,
+      "longitude": 45.25,
+      "altitude": 120.5,
+      "speed": 33.0,
+      "battery": 87.5,
+      "satellites": 41
+    }
+  },
+  {
+    "case": "non_positive_sequence",
+    "expected_error": "sequence must be a positive integer",
+    "packet": {
+      "timestamp": "2024-05-01T09:00:00Z",
+      "sequence": 0,
+      "latitude": 12.5,
+      "longitude": 45.25,
+      "altitude": 120.5,
+      "speed": 33.0,
+      "battery": 87.5,
+      "satellites": 12
+    }
+  }
+]

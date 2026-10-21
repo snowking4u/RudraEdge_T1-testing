@@ -1,0 +1,22 @@
+H03 REVIEW ARTIFACT - REQ-012 Public API verification
+
+Package            : tvps  (version 1.0.0)
+Import location    : D:\projects\RudraEdge_T1-testing\TVP-S\tvps
+
+Callable / attribute check performed by direct import:
+
+  OK      tvps.parse_telemetry              -> function
+  OK      tvps.validate_telemetry           -> function
+  OK      tvps.process_telemetry            -> function
+  OK      tvps.process_batch                -> function
+  OK      tvps.process_packet               -> function
+  OK      tvps.handle_validation_error      -> function
+  OK      tvps.TelemetryProcessor           -> class
+  OK      tvps.collect_validation_errors    -> function
+  OK      tvps.validate_or_raise            -> function
+  OK      tvps.normalise_telemetry          -> function
+  OK      tvps.load_cases                   -> function
+  OK      tvps.load_raw_packets             -> function
+
+Result: 12/12 public names importable from the tvps package.
+REVIEW RESULT: PASS.

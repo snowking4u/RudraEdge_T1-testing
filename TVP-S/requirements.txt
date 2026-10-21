@@ -1,0 +1,6 @@
+# TVPS has no runtime dependencies - the system uses the Python standard
+# library only (json, pathlib, dataclasses, typing, logging, unittest-free).
+#
+# The only dependency is pytest, which is required for the verification
+# suite (pytest >= 7 is required for the "pythonpath" ini option).
+pytest>=7.0

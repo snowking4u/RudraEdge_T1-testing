@@ -1,0 +1,30 @@
+H03 REVIEW ARTIFACT - REQ-011 Local/offline operation
+
+Review method: AST scan of every TVPS source file for network-capable imports,
+inspection of relative-import usage, and inspection of declared dependencies.
+
+Source files scanned        : 8
+Absolute imports (top-level): __future__, dataclasses, enum, json, logging, math, pathlib, traceback, typing
+Relative imports (in-package): 20
+
+Network-capable imports found: 0
+
+Third-party imports (outside the standard library and outside the tvps package):
+  none
+
+Declared dependencies (requirements.txt):
+# TVPS has no runtime dependencies - the system uses the Python standard
+# library only (json, pathlib, dataclasses, typing, logging, unittest-free).
+#
+# The only dependency is pytest, which is required for the verification
+# suite (pytest >= 7 is required for the "pythonpath" ini option).
+pytest>=7.0
+
+Runtime (non-development) dependencies: none
+
+Execution environment: local Python interpreter, no network access available;
+the suite and the demo completed successfully in that environment.
+
+REVIEW RESULT: PASS - no network-capable imports, no third-party runtime
+dependency, no external service used. 'pytest' is declared as the only
+development/verification dependency.

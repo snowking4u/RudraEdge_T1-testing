@@ -1,0 +1,11 @@
+# Malformed telemetry payloads used for fault testing (REQ-006).
+# Every non-empty line below is one raw payload that must be rejected
+# by the parser with a structured PARSE_ERROR / EMPTY_INPUT result.
+{"timestamp": "2024-05-01T09:00:00Z", "sequence": 1, "latitude": 12.5, "longitude": 45.25, "altitude": 120.5, "speed": 33.0, "battery": 87.5, "satellites": 12
+{'timestamp': '2024-05-01T09:00:00Z', 'sequence': 1, 'latitude': 12.5}
+{"timestamp": "2024-05-01T09:00:00Z", "sequence": 1, "latitude": 12.5,}
+{"timestamp": "2024-05-01T09:00:00Z", "sequence": 1, "latitude"
+{not json at all}
+[1, 2, 3]
+{"timestamp": "2024-05-01T09:00:00Z" "sequence": 1}
+{"timestamp": "2024-05-01T09:00:00Z", "sequence": 1, "latitude": 12.5, "longitude": 45.25, "altitude": 120.5, "speed": 33.0, "battery": 87.5, "satellites": 12}}

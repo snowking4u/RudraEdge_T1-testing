@@ -1,0 +1,278 @@
+H03 EVIDENCE - Structured error output captured from the running system
+
+Every sample below is the actual envelope returned by the public API.
+
+### REQ-002  missing mandatory field
+{
+  "valid": false,
+  "errors": [
+    "battery field is required"
+  ],
+  "error_details": [
+    {
+      "code": "MISSING_FIELD",
+      "field": "battery",
+      "message": "battery field is required",
+      "context": {
+        "mandatory_field": "battery"
+      }
+    }
+  ],
+  "status": "REJECTED",
+  "data": null
+}
+
+### REQ-003  wrong data type
+{
+  "valid": false,
+  "errors": [
+    "battery must be a number"
+  ],
+  "error_details": [
+    {
+      "code": "INVALID_TYPE",
+      "field": "battery",
+      "message": "battery must be a number",
+      "context": {
+        "expected_type": "a number",
+        "actual_type": "str",
+        "value": "'full'"
+      }
+    }
+  ],
+  "status": "REJECTED",
+  "data": null
+}
+
+### REQ-004  out of range value
+{
+  "valid": false,
+  "errors": [
+    "battery must be between 0 and 100"
+  ],
+  "error_details": [
+    {
+      "code": "OUT_OF_RANGE",
+      "field": "battery",
+      "message": "battery must be between 0 and 100",
+      "context": {
+        "value": 101,
+        "minimum": 0,
+        "maximum": 100
+      }
+    }
+  ],
+  "status": "REJECTED",
+  "data": null
+}
+
+### REQ-006  malformed JSON
+{
+  "valid": false,
+  "errors": [
+    "malformed JSON: Expecting ',' delimiter (line 1, column 15)"
+  ],
+  "error_details": [
+    {
+      "code": "PARSE_ERROR",
+      "field": null,
+      "message": "malformed JSON: Expecting ',' delimiter (line 1, column 15)",
+      "context": {
+        "reason": "Expecting ',' delimiter",
+        "line": 1,
+        "column": 15,
+        "position": 14
+      }
+    }
+  ],
+  "status": "REJECTED",
+  "data": null
+}
+
+### REQ-005  out of order sequence
+{
+  "valid": false,
+  "errors": [
+    "sequence 2 is out of order, expected greater than 9"
+  ],
+  "error_details": [
+    {
+      "code": "SEQUENCE_ORDER_ERROR",
+      "field": "sequence",
+      "message": "sequence 2 is out of order, expected greater than 9",
+      "context": {
+        "sequence": 2,
+        "last_sequence": 9
+      }
+    }
+  ],
+  "status": "OUT_OF_ORDER",
+  "data": null
+}
+
+### REQ-008  unexpected exception (never swallowed)
+{
+  "valid": false,
+  "errors": [
+    "ZeroDivisionError: division by zero"
+  ],
+  "error_details": [
+    {
+      "code": "UNEXPECTED_ERROR",
+      "field": null,
+      "message": "ZeroDivisionError: division by zero",
+      "context": {
+        "exception_type": "ZeroDivisionError",
+        "exception_message": "division by zero",
+        "traceback": "NoneType: None\n"
+      }
+    }
+  ],
+  "status": "REJECTED",
+  "data": null
+}
+
+### REQ-009  batch summary (mixed batch)
+{
+  "valid": false,
+  "errors": [
+    "battery field is required",
+    "malformed JSON: Expecting property name enclosed in double quotes (line 1, column 2)"
+  ],
+  "error_details": [
+    {
+      "code": "MISSING_FIELD",
+      "field": "battery",
+      "message": "battery field is required",
+      "context": {
+        "mandatory_field": "battery"
+      },
+      "index": 1,
+      "status": "REJECTED"
+    },
+    {
+      "code": "PARSE_ERROR",
+      "field": null,
+      "message": "malformed JSON: Expecting property name enclosed in double quotes (line 1, column 2)",
+      "context": {
+        "reason": "Expecting property name enclosed in double quotes",
+        "line": 1,
+        "column": 2,
+        "position": 1
+      },
+      "index": 2,
+      "status": "REJECTED"
+    }
+  ],
+  "status": "PARTIAL",
+  "data": {
+    "total_packets": 4,
+    "valid_packets": 2,
+    "invalid_packets": 2,
+    "processed_packets": 2,
+    "results": [
+      {
+        "valid": true,
+        "errors": [],
+        "error_details": [],
+        "status": "PROCESSED",
+        "data": {
+          "sequence": 1,
+          "timestamp": "2024-05-01T09:00:00Z",
+          "position": {
+            "latitude": 12.5,
+            "longitude": 45.25
+          },
+          "altitude": 120.5,
+          "speed": 33.0,
+          "battery": 87.5,
+          "satellites": 12,
+          "status": "PROCESSED"
+        }
+      },
+      {
+        "valid": false,
+        "errors": [
+          "battery field is required"
+        ],
+        "error_details": [
+          {
+            "code": "MISSING_FIELD",
+            "field": "battery",
+            "message": "battery field is required",
+            "context": {
+              "mandatory_field": "battery"
+            }
+          }
+        ],
+        "status": "REJECTED",
+        "data": null
+      },
+      {
+        "valid": false,
+        "errors": [
+          "malformed JSON: Expecting property name enclosed in double quotes (line 1, column 2)"
+        ],
+        "error_details": [
+          {
+            "code": "PARSE_ERROR",
+            "field": null,
+            "message": "malformed JSON: Expecting property name enclosed in double quotes (line 1, column 2)",
+            "context": {
+              "reason": "Expecting property name enclosed in double quotes",
+              "line": 1,
+              "column": 2,
+              "position": 1
+            }
+          }
+        ],
+        "status": "REJECTED",
+        "data": null
+      },
+      {
+        "valid": true,
+        "errors": [],
+        "error_details": [],
+        "status": "PROCESSED",
+        "data": {
+          "sequence": 2,
+          "timestamp": "2024-05-01T09:00:00Z",
+          "position": {
+            "latitude": 12.5,
+            "longitude": 45.25
+          },
+          "altitude": 120.5,
+          "speed": 33.0,
+          "battery": 87.5,
+          "satellites": 12,
+          "status": "PROCESSED"
+        }
+      }
+    ],
+    "error_details": [
+      {
+        "code": "MISSING_FIELD",
+        "field": "battery",
+        "message": "battery field is required",
+        "context": {
+          "mandatory_field": "battery"
+        },
+        "index": 1,
+        "status": "REJECTED"
+      },
+      {
+        "code": "PARSE_ERROR",
+        "field": null,
+        "message": "malformed JSON: Expecting property name enclosed in double quotes (line 1, column 2)",
+        "context": {
+          "reason": "Expecting property name enclosed in double quotes",
+          "line": 1,
+          "column": 2,
+          "position": 1
+        },
+        "index": 2,
+        "status": "REJECTED"
+      }
+    ]
+  }
+}
